@@ -1,0 +1,122 @@
+═══════════════════════════════════════════════════════════
+   COMMANDES RAPIDES - HBnB Part 3
+═══════════════════════════════════════════════════════════
+
+📍 NAVIGUER VERS LE PROJET
+──────────────────────────────────────────────────────────
+cd C:\Users\Bonya\holbertonschool-higher_level_programming-1\holbertonschool-hbnb\part3
+
+
+🚀 LANCEMENT ULTRA-RAPIDE (TOUT EN UN)
+──────────────────────────────────────────────────────────
+setup_and_run.bat
+
+Ou simplement double-cliquez sur le fichier setup_and_run.bat
+
+
+⚡ LANCEMENT RAPIDE (si déjà configuré)
+──────────────────────────────────────────────────────────
+start.bat
+
+
+📝 INSTALLATION MANUELLE (étape par étape)
+──────────────────────────────────────────────────────────
+
+1️⃣ Créer l'environnement virtuel :
+   python -m venv venv
+
+2️⃣ Activer le venv :
+   venv\Scripts\activate
+
+3️⃣ Installer les dépendances :
+   pip install -r requirements.txt
+
+4️⃣ Initialiser la base de données :
+   python init_db.py
+
+5️⃣ Créer les données de test :
+   python seed_data.py
+
+6️⃣ Lancer le serveur :
+   python run.py
+
+
+🔄 RÉINITIALISER LA BASE DE DONNÉES
+──────────────────────────────────────────────────────────
+python init_db.py --drop
+python seed_data.py
+
+
+🧪 TESTER L'API
+──────────────────────────────────────────────────────────
+
+Health Check :
+curl http://127.0.0.1:5000/health
+
+Login Admin :
+curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: application/json" -d "{\"email\":\"admin@hbnb.io\",\"password\":\"admin1234\"}"
+
+Login User :
+curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: application/json" -d "{\"email\":\"john.doe@example.com\",\"password\":\"password123\"}"
+
+
+🌐 URLS IMPORTANTES
+──────────────────────────────────────────────────────────
+Swagger UI       : http://127.0.0.1:5000/
+Health Check     : http://127.0.0.1:5000/health
+Login            : http://127.0.0.1:5000/api/v1/auth/login
+Users API        : http://127.0.0.1:5000/api/v1/users
+Places API       : http://127.0.0.1:5000/api/v1/places
+Reviews API      : http://127.0.0.1:5000/api/v1/reviews
+Amenities API    : http://127.0.0.1:5000/api/v1/amenities
+
+
+🔑 COMPTES PAR DÉFAUT
+──────────────────────────────────────────────────────────
+ADMIN:
+  Email    : admin@hbnb.io
+  Password : admin1234
+  Role     : Administrateur
+
+USER 1:
+  Email    : john.doe@example.com
+  Password : password123
+  Role     : Utilisateur normal
+
+USER 2:
+  Email    : jane.smith@example.com
+  Password : password123
+  Role     : Utilisateur normal
+
+
+🛑 ARRÊTER LE SERVEUR
+──────────────────────────────────────────────────────────
+Ctrl + C dans le terminal
+
+
+💡 DÉSACTIVER LE VENV
+──────────────────────────────────────────────────────────
+deactivate
+
+
+🔧 DÉPANNAGE
+──────────────────────────────────────────────────────────
+
+Problème : Module not found
+Solution : pip install -r requirements.txt
+
+Problème : Port 5000 already in use
+Solution : Modifier le port dans run.py (ligne 10)
+
+Problème : Base de données corrompue
+Solution :
+  del development.db
+  python init_db.py
+  python seed_data.py
+
+Problème : Venv ne s'active pas (PowerShell)
+Solution :
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+═══════════════════════════════════════════════════════════
