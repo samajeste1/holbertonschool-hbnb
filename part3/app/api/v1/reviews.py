@@ -9,7 +9,6 @@ api = Namespace('reviews', description='Reviews related operations')
 review_create = api.model('ReviewCreate', {
     'text': fields.String(required=True, description='The content of the review'),
     'rating': fields.Integer(required=True, description='Rating between 1 and 5'),
-    'user_id': fields.String(required=True, description='User ID who posted the review'),
     'place_id': fields.String(required=True, description='Place ID being reviewed')
 })
 

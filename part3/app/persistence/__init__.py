@@ -1,8 +1,16 @@
-from flask import Flask
-from flask_restx import Api
+"""
+Persistence layer package - Repository pattern implementation
+"""
+from app.persistence.repository import SQLAlchemyRepository
+from app.persistence.user_repository import UserRepository
+from app.persistence.place_repository import PlaceRepository
+from app.persistence.review_repository import ReviewRepository
+from app.persistence.amenity_repository import AmenityRepository
 
-def create_app():
-    app = Flask(__name__)
-    api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API', doc='/api/v1/')
-
-    return app
+__all__ = [
+    'SQLAlchemyRepository',
+    'UserRepository',
+    'PlaceRepository',
+    'ReviewRepository',
+    'AmenityRepository'
+]

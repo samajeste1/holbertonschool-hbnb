@@ -1,45 +1,103 @@
 <!DOCTYPE html>
+<!-- Declaration DOCTYPE HTML5 : indique au navigateur d'utiliser le mode HTML5 standard -->
+
 <html lang="en">
+<!-- Balise racine du document HTML, lang="en" indique que le contenu est en anglais -->
+
 <head>
+    <!-- Section head : contient les metadonnees du document (non visibles) -->
+
     <meta charset="UTF-8">
+    <!-- Definit l'encodage des caracteres en UTF-8 (supporte tous les caracteres internationaux) -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta viewport : configure l'affichage sur mobile -->
+    <!-- width=device-width : largeur = largeur de l'ecran -->
+    <!-- initial-scale=1.0 : zoom initial a 100% -->
+
     <title>HBnB - Places</title>
+    <!-- Titre affiche dans l'onglet du navigateur -->
+
     <link rel="icon" type="image/png" href="images/icon.png">
+    <!-- Favicon : petite icone affichee dans l'onglet du navigateur -->
+
     <link rel="stylesheet" href="styles.css">
+    <!-- Lie la feuille de style CSS externe pour le design -->
 </head>
+
 <body>
+    <!-- Corps du document : contenu visible de la page -->
+
     <header>
+        <!-- En-tete de la page : logo et bouton de connexion -->
+
         <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        <!-- Logo de l'application -->
+        <!-- alt : texte alternatif si l'image ne charge pas (accessibilite) -->
+        <!-- class="logo" : applique les styles CSS de la classe .logo -->
+
         <a href="login.html" class="login-button" id="login-link">Login</a>
+        <!-- Lien vers la page de connexion -->
+        <!-- id="login-link" : identifiant unique pour manipulation JavaScript -->
     </header>
 
     <nav>
+        <!-- Barre de navigation principale -->
+
         <ul>
+            <!-- Liste non ordonnee pour les liens de navigation -->
+
             <li><a href="index.html">Home</a></li>
+            <!-- Lien vers la page d'accueil -->
+
             <li><a href="login.html">Login</a></li>
+            <!-- Lien vers la page de connexion -->
         </ul>
     </nav>
 
     <main>
+        <!-- Contenu principal de la page -->
+
         <section id="filter">
+            <!-- Section de filtrage par prix -->
+
             <label for="price-filter">Filter by price:</label>
+            <!-- Label lie au select par l'attribut for -->
+
             <select id="price-filter">
+                <!-- Menu deroulant pour filtrer les lieux par prix -->
+                <!-- L'evenement change est gere par JavaScript -->
+
                 <option value="10">$10</option>
+                <!-- Option : affiche les lieux <= 10$ -->
+
                 <option value="50">$50</option>
+                <!-- Option : affiche les lieux <= 50$ -->
+
                 <option value="100">$100</option>
+                <!-- Option : affiche les lieux <= 100$ -->
+
                 <option value="all" selected>All</option>
+                <!-- Option par defaut (selected) : affiche tous les lieux -->
             </select>
         </section>
 
         <section id="places-list">
+            <!-- Conteneur pour les cartes de lieux -->
+            <!-- Le contenu sera genere dynamiquement par JavaScript -->
             <!-- Place cards will be dynamically inserted here -->
         </section>
     </main>
 
     <footer>
+        <!-- Pied de page -->
+
         <p>&copy; 2024 HBnB. All rights reserved.</p>
+        <!-- &copy; : symbole copyright -->
     </footer>
 
     <script src="scripts.js"></script>
+    <!-- Charge le fichier JavaScript principal -->
+    <!-- Place en fin de body pour que le HTML soit charge avant l'execution -->
 </body>
 </html>

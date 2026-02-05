@@ -1,398 +1,517 @@
 /*
  * HBnB Web Client - Main Stylesheet
- * Fixed parameters as per requirements:
- * - Margin: 20px for place and review cards
- * - Padding: 10px within place and review cards
- * - Border: 1px solid #ddd for place and review cards
- * - Border Radius: 10px for place and review cards
+ * Feuille de style principale pour le client web HBnB
+ *
+ * Parametres fixes selon les specifications :
+ * - Margin: 20px pour les cartes de lieu et d'avis
+ * - Padding: 10px a l'interieur des cartes
+ * - Border: 1px solid #ddd pour les cartes
+ * - Border Radius: 10px pour les coins arrondis
  */
 
-/* Reset and base styles */
+/* ============================================
+   RESET ET STYLES DE BASE
+   Reinitialise les styles par defaut du navigateur
+   pour un rendu coherent sur tous les navigateurs
+   ============================================ */
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+    /* Selecteur universel : s'applique a tous les elements */
+    box-sizing: border-box;  /* La largeur inclut le padding et la bordure */
+    margin: 0;               /* Supprime les marges par defaut */
+    padding: 0;              /* Supprime le padding par defaut */
+    font-family: Arial, sans-serif;  /* Police par defaut lisible */
 }
 
 body {
-    background-color: #f4f4f4;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    /* Styles pour le corps de la page */
+    background-color: #f4f4f4;  /* Fond gris clair */
+    color: #333;                 /* Couleur du texte : gris fonce */
+    min-height: 100vh;           /* Hauteur minimum = 100% de la fenetre */
+    display: flex;               /* Active le mode Flexbox */
+    flex-direction: column;      /* Elements enfants empiles verticalement */
 }
 
-/* Header */
+/* ============================================
+   EN-TETE (HEADER)
+   Barre superieure contenant le logo et le bouton de connexion
+   ============================================ */
+
 header {
-    background-color: #fff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;      /* Fond blanc */
+    padding: 1rem 2rem;          /* Espacement : 1rem haut/bas, 2rem gauche/droite */
+    display: flex;               /* Active Flexbox pour aligner les elements */
+    justify-content: space-between;  /* Espace le logo et le bouton aux extremites */
+    align-items: center;         /* Centre verticalement les elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Ombre legere sous le header */
 }
 
 .logo {
-    height: 50px;
-    width: auto;
+    /* Style pour l'image du logo */
+    height: 50px;    /* Hauteur fixe de 50 pixels */
+    width: auto;     /* Largeur automatique (garde les proportions) */
 }
 
 .login-button {
-    background-color: #ff5a5f;
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-weight: bold;
+    /* Style pour le bouton Login/Home */
+    background-color: #ff5a5f;   /* Rouge/rose (couleur style Airbnb) */
+    color: white;                /* Texte en blanc */
+    padding: 0.5rem 1.5rem;      /* Espacement interne */
+    border: none;                /* Pas de bordure */
+    border-radius: 5px;          /* Coins legerement arrondis */
+    cursor: pointer;             /* Curseur en forme de main au survol */
+    text-decoration: none;       /* Supprime le soulignement (c'est un lien <a>) */
+    font-weight: bold;           /* Texte en gras */
 }
 
 .login-button:hover {
-    background-color: #e04850;
+    /* Style au survol du bouton */
+    background-color: #e04850;   /* Rouge plus fonce pour l'effet hover */
 }
 
-/* Navigation */
+/* ============================================
+   NAVIGATION
+   Barre de menu horizontale sous le header
+   ============================================ */
+
 nav {
-    background-color: #484848;
-    padding: 0.5rem 2rem;
+    background-color: #484848;   /* Fond gris fonce */
+    padding: 0.5rem 2rem;        /* Espacement interne */
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
+    /* Liste de navigation */
+    list-style: none;            /* Supprime les puces de la liste */
+    display: flex;               /* Elements en ligne avec Flexbox */
+    gap: 1rem;                   /* Espacement de 1rem entre les liens */
 }
 
 nav ul li {
-    display: inline;
+    display: inline;             /* Elements affiches en ligne */
 }
 
 nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    /* Style des liens de navigation */
+    color: #fff;                 /* Texte blanc */
+    text-decoration: none;       /* Pas de soulignement */
+    padding: 0.5rem 1rem;        /* Zone cliquable plus grande */
+    border-radius: 5px;          /* Coins arrondis */
 }
 
 nav a:hover {
-    background-color: #666;
+    /* Style au survol des liens */
+    background-color: #666;      /* Fond gris plus clair */
 }
 
-/* Main content */
+/* ============================================
+   CONTENU PRINCIPAL (MAIN)
+   Zone centrale qui contient le contenu de chaque page
+   ============================================ */
+
 main {
-    flex: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    width: 100%;
+    flex: 1;                     /* Prend tout l'espace vertical disponible */
+    max-width: 1200px;           /* Largeur maximale de 1200px */
+    margin: 0 auto;              /* Centre horizontalement la zone */
+    padding: 2rem;               /* Espacement interne de 2rem */
+    width: 100%;                 /* Prend 100% de largeur jusqu'au max-width */
 }
 
-/* Filter section */
+/* ============================================
+   SECTION FILTRE
+   Zone de filtrage par prix sur la page d'accueil
+   ============================================ */
+
 #filter {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Conteneur du filtre */
+    margin-bottom: 2rem;         /* Marge en bas de 2rem */
+    padding: 1rem;               /* Espacement interne */
+    background-color: #fff;      /* Fond blanc */
+    border-radius: 10px;         /* Coins arrondis */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Ombre legere */
 }
 
 #filter label {
-    font-weight: bold;
-    margin-right: 1rem;
+    /* Label "Filter by price:" */
+    font-weight: bold;           /* Texte en gras */
+    margin-right: 1rem;          /* Espacement a droite */
 }
 
 #price-filter {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
+    /* Menu deroulant de selection du prix */
+    padding: 0.5rem 1rem;        /* Espacement interne */
+    border: 1px solid #ddd;      /* Bordure grise fine */
+    border-radius: 5px;          /* Coins arrondis */
+    font-size: 1rem;             /* Taille de police standard */
+    cursor: pointer;             /* Curseur main pour indiquer l'interactivite */
 }
 
-/* Places list */
+/* ============================================
+   LISTE DES LIEUX
+   Grille responsive qui affiche les cartes de lieu
+   ============================================ */
+
 #places-list {
-    display: grid;
+    display: grid;               /* Active le mode CSS Grid */
+    /* Cree des colonnes auto-adaptatives :
+       - auto-fill : remplit l'espace avec autant de colonnes que possible
+       - minmax(300px, 1fr) : chaque colonne fait minimum 300px, maximum 1 fraction */
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 20px;                   /* Espacement de 20px entre les cartes */
 }
 
-/* Place card - Fixed parameters */
+/* ============================================
+   CARTE DE LIEU (PLACE CARD)
+   Affiche un apercu d'un lieu dans la liste
+   PARAMETRES FIXES SELON LES SPECIFICATIONS
+   ============================================ */
+
 .place-card {
-    background-color: #fff;
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;      /* Fond blanc */
+    margin: 20px 0;              /* SPECIFICATION : Marge verticale de 20px */
+    padding: 10px;               /* SPECIFICATION : Padding de 10px */
+    border: 1px solid #ddd;      /* SPECIFICATION : Bordure grise de 1px */
+    border-radius: 10px;         /* SPECIFICATION : Coins arrondis de 10px */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Ombre legere */
+    transition: transform 0.2s, box-shadow 0.2s;  /* Animation fluide de 0.2s */
 }
 
 .place-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Effet au survol de la carte */
+    transform: translateY(-5px);  /* Souleve la carte de 5 pixels vers le haut */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  /* Ombre plus prononcee */
 }
 
 .place-card h3 {
-    color: #333;
-    margin-bottom: 0.5rem;
+    /* Titre de la carte (nom du lieu) */
+    color: #333;                 /* Gris fonce */
+    margin-bottom: 0.5rem;       /* Petite marge en bas */
 }
 
 .place-card p {
-    color: #666;
-    margin-bottom: 1rem;
+    /* Paragraphes dans la carte */
+    color: #666;                 /* Gris moyen */
+    margin-bottom: 1rem;         /* Marge en bas */
 }
 
 .place-card .price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ff5a5f;
+    /* Affichage du prix */
+    font-size: 1.2rem;           /* Taille plus grande */
+    font-weight: bold;           /* En gras pour attirer l'attention */
+    color: #ff5a5f;              /* Rouge/rose pour le mettre en evidence */
 }
 
 .details-button {
-    background-color: #00a699;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+    /* Bouton "View Details" */
+    background-color: #00a699;   /* Vert turquoise */
+    color: white;                /* Texte blanc */
+    border: none;                /* Pas de bordure */
+    padding: 0.5rem 1rem;        /* Espacement interne */
+    border-radius: 5px;          /* Coins arrondis */
+    cursor: pointer;             /* Curseur main */
+    text-decoration: none;       /* Pas de soulignement (lien) */
+    display: inline-block;       /* Permet d'appliquer padding et margin */
 }
 
 .details-button:hover {
-    background-color: #008c82;
+    /* Effet au survol du bouton */
+    background-color: #008c82;   /* Vert plus fonce */
 }
 
-/* Place details - Fixed parameters */
+/* ============================================
+   DETAILS D'UN LIEU
+   Page affichant les informations completes d'un lieu
+   ============================================ */
+
 .place-details {
-    background-color: #fff;
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;      /* Fond blanc */
+    margin: 20px 0;              /* SPECIFICATION : Marge de 20px */
+    padding: 20px;               /* Padding plus genereux pour les details */
+    border: 1px solid #ddd;      /* SPECIFICATION : Bordure grise */
+    border-radius: 10px;         /* SPECIFICATION : Coins de 10px */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Ombre legere */
 }
 
 .place-info {
-    margin-bottom: 1.5rem;
+    /* Conteneur des informations du lieu */
+    margin-bottom: 1.5rem;       /* Marge en bas */
 }
 
 .place-info h2 {
-    color: #333;
-    margin-bottom: 1rem;
-    font-size: 2rem;
+    /* Titre principal (nom du lieu) */
+    color: #333;                 /* Gris fonce */
+    margin-bottom: 1rem;         /* Marge en bas */
+    font-size: 2rem;             /* Grande taille (32px) */
 }
 
 .place-info p {
-    margin-bottom: 0.5rem;
-    color: #666;
-    line-height: 1.6;
+    /* Paragraphes d'information */
+    margin-bottom: 0.5rem;       /* Petite marge */
+    color: #666;                 /* Gris moyen */
+    line-height: 1.6;            /* Interligne de 1.6 pour la lisibilite */
 }
 
 .place-info strong {
-    color: #333;
+    /* Labels en gras (Host:, Price:, etc.) */
+    color: #333;                 /* Gris fonce pour contraste */
 }
 
-/* Amenities */
+/* ============================================
+   AMENITIES (EQUIPEMENTS)
+   Liste des services disponibles dans un lieu
+   ============================================ */
+
 .amenities {
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background-color: #f9f9f9;
-    border-radius: 10px;
+    margin: 1.5rem 0;            /* Marge verticale */
+    padding: 1rem;               /* Espacement interne */
+    background-color: #f9f9f9;   /* Fond gris tres clair */
+    border-radius: 10px;         /* Coins arrondis */
 }
 
 .amenities h4 {
-    margin-bottom: 0.5rem;
-    color: #333;
+    /* Titre "Amenities" */
+    margin-bottom: 0.5rem;       /* Petite marge en bas */
+    color: #333;                 /* Gris fonce */
 }
 
 .amenities ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    /* Liste des equipements */
+    list-style: none;            /* Pas de puces */
+    display: flex;               /* Affichage en ligne */
+    flex-wrap: wrap;             /* Retour a la ligne si necessaire */
+    gap: 0.5rem;                 /* Espacement entre les elements */
 }
 
 .amenities li {
-    background-color: #e0e0e0;
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.9rem;
+    /* Chaque equipement sous forme de badge/pilule */
+    background-color: #e0e0e0;   /* Fond gris clair */
+    padding: 0.25rem 0.75rem;    /* Petit padding */
+    border-radius: 15px;         /* Tres arrondi (forme de pilule) */
+    font-size: 0.9rem;           /* Texte legerement plus petit */
 }
 
-/* Reviews section */
+/* ============================================
+   SECTION REVIEWS (AVIS)
+   Zone affichant les avis des utilisateurs
+   ============================================ */
+
 #reviews {
-    margin: 20px 0;
+    margin: 20px 0;              /* Marge verticale de 20px */
 }
 
 #reviews h3 {
-    margin-bottom: 1rem;
-    color: #333;
+    /* Titre "Reviews" */
+    margin-bottom: 1rem;         /* Marge en bas */
+    color: #333;                 /* Gris fonce */
 }
 
-/* Review card - Fixed parameters */
+/* ============================================
+   CARTE D'AVIS (REVIEW CARD)
+   Affiche un avis individuel
+   PARAMETRES FIXES SELON LES SPECIFICATIONS
+   ============================================ */
+
 .review-card {
-    background-color: #fff;
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;      /* Fond blanc */
+    margin: 20px 0;              /* SPECIFICATION : Marge de 20px */
+    padding: 10px;               /* SPECIFICATION : Padding de 10px */
+    border: 1px solid #ddd;      /* SPECIFICATION : Bordure grise */
+    border-radius: 10px;         /* SPECIFICATION : Coins de 10px */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Ombre legere */
 }
 
 .review-card p {
-    margin-bottom: 0.5rem;
-    line-height: 1.5;
+    /* Paragraphes dans la carte d'avis */
+    margin-bottom: 0.5rem;       /* Petite marge entre paragraphes */
+    line-height: 1.5;            /* Interligne pour la lisibilite */
 }
 
 .review-card strong {
-    color: #333;
+    /* Nom de l'auteur en gras */
+    color: #333;                 /* Gris fonce */
 }
 
 .review-card .rating {
-    color: #ff5a5f;
-    font-weight: bold;
+    /* Affichage de la note (Rating: X/5) */
+    color: #ff5a5f;              /* Rouge/rose pour attirer l'attention */
+    font-weight: bold;           /* En gras */
 }
 
-/* Add review section */
+/* ============================================
+   SECTION AJOUT D'AVIS
+   Formulaire pour poster un nouvel avis
+   ============================================ */
+
 .add-review {
-    background-color: #fff;
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;      /* Fond blanc */
+    margin: 20px 0;              /* Marge verticale */
+    padding: 20px;               /* Padding genereux */
+    border: 1px solid #ddd;      /* Bordure grise */
+    border-radius: 10px;         /* Coins arrondis */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Ombre */
 }
 
 .add-review h3 {
-    margin-bottom: 1rem;
-    color: #333;
+    /* Titre "Add a Review" */
+    margin-bottom: 1rem;         /* Marge en bas */
+    color: #333;                 /* Gris fonce */
 }
 
-/* Forms */
+/* ============================================
+   FORMULAIRES
+   Styles communs a tous les formulaires de l'application
+   ============================================ */
+
 .form {
-    display: flex;
-    flex-direction: column;
+    display: flex;               /* Active Flexbox */
+    flex-direction: column;      /* Elements empiles verticalement */
 }
 
 .form label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: #333;
+    /* Labels des champs de formulaire */
+    font-weight: bold;           /* En gras */
+    margin-bottom: 0.5rem;       /* Marge sous le label */
+    color: #333;                 /* Gris fonce */
 }
 
 .form input,
 .form textarea,
 .form select {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-family: inherit;
+    /* Styles communs aux champs de saisie */
+    padding: 0.75rem;            /* Espacement interne confortable */
+    margin-bottom: 1rem;         /* Marge entre les champs */
+    border: 1px solid #ddd;      /* Bordure grise */
+    border-radius: 5px;          /* Coins arrondis */
+    font-size: 1rem;             /* Taille de police standard */
+    font-family: inherit;        /* Herite de la police parente */
 }
 
 .form input:focus,
 .form textarea:focus,
 .form select:focus {
-    outline: none;
-    border-color: #ff5a5f;
-    box-shadow: 0 0 5px rgba(255, 90, 95, 0.3);
+    /* Style quand un champ est selectionne (en focus) */
+    outline: none;               /* Supprime le contour bleu par defaut */
+    border-color: #ff5a5f;       /* Bordure rouge/rose */
+    box-shadow: 0 0 5px rgba(255, 90, 95, 0.3);  /* Lueur coloree autour */
 }
 
 .form textarea {
-    min-height: 120px;
-    resize: vertical;
+    /* Zone de texte multi-lignes */
+    min-height: 120px;           /* Hauteur minimale de 120px */
+    resize: vertical;            /* Redimensionnable verticalement seulement */
 }
 
 .form button {
-    background-color: #ff5a5f;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: background-color 0.2s;
+    /* Bouton de soumission */
+    background-color: #ff5a5f;   /* Rouge/rose */
+    color: white;                /* Texte blanc */
+    padding: 0.75rem 1.5rem;     /* Espacement genereux */
+    border: none;                /* Pas de bordure */
+    border-radius: 5px;          /* Coins arrondis */
+    cursor: pointer;             /* Curseur main */
+    font-size: 1rem;             /* Taille normale */
+    font-weight: bold;           /* En gras */
+    transition: background-color 0.2s;  /* Animation fluide au survol */
 }
 
 .form button:hover {
-    background-color: #e04850;
+    /* Effet au survol du bouton */
+    background-color: #e04850;   /* Rouge plus fonce */
 }
 
-/* Login form specific */
+/* ============================================
+   FORMULAIRE DE CONNEXION
+   Styles specifiques a la page login.html
+   ============================================ */
+
 #login-form {
-    max-width: 400px;
-    margin: 2rem auto;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;            /* Largeur max pour un formulaire centre */
+    margin: 2rem auto;           /* Centre horizontalement avec marges */
+    background-color: #fff;      /* Fond blanc */
+    padding: 2rem;               /* Padding genereux */
+    border-radius: 10px;         /* Coins arrondis */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  /* Ombre plus prononcee */
 }
 
 #login-form h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #333;
+    /* Titre "Login" */
+    text-align: center;          /* Centre le texte */
+    margin-bottom: 1.5rem;       /* Marge en bas */
+    color: #333;                 /* Gris fonce */
 }
 
-/* Footer */
+/* ============================================
+   PIED DE PAGE (FOOTER)
+   Barre inferieure de toutes les pages
+   ============================================ */
+
 footer {
-    background-color: #484848;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    margin-top: auto;
+    background-color: #484848;   /* Meme gris que la navigation */
+    color: #fff;                 /* Texte blanc */
+    text-align: center;          /* Centre le texte */
+    padding: 1rem;               /* Espacement */
+    margin-top: auto;            /* Pousse le footer en bas (Flexbox) */
 }
 
-/* Responsive design */
+/* ============================================
+   RESPONSIVE DESIGN
+   Adaptation pour les ecrans de petite taille (mobile/tablette)
+   @media : applique les styles si la condition est vraie
+   ============================================ */
+
 @media (max-width: 768px) {
+    /* Ces styles s'appliquent si la largeur de l'ecran <= 768px */
+
     header {
-        padding: 1rem;
+        padding: 1rem;           /* Padding reduit sur mobile */
     }
 
     .logo {
-        height: 40px;
+        height: 40px;            /* Logo plus petit sur mobile */
     }
 
     nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
+        flex-direction: column;  /* Navigation empilee verticalement */
+        gap: 0.5rem;             /* Espacement reduit */
     }
 
     main {
-        padding: 1rem;
+        padding: 1rem;           /* Padding reduit */
     }
 
     #places-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr;  /* Une seule colonne sur mobile */
     }
 
     .place-card {
-        margin: 10px 0;
+        margin: 10px 0;          /* Marge reduite sur mobile */
     }
 
     .review-card {
-        margin: 10px 0;
+        margin: 10px 0;          /* Marge reduite sur mobile */
     }
 }
 
-/* Utility classes */
+/* ============================================
+   CLASSES UTILITAIRES
+   Classes CSS reutilisables pour des ajustements rapides
+   ============================================ */
+
 .hidden {
-    display: none !important;
+    /* Cache completement un element */
+    display: none !important;    /* !important pour forcer meme si autre style */
 }
 
 .text-center {
+    /* Centre le texte horizontalement */
     text-align: center;
 }
 
 .mt-1 {
+    /* Margin-top de 1rem */
     margin-top: 1rem;
 }
 
 .mb-1 {
+    /* Margin-bottom de 1rem */
     margin-bottom: 1rem;
 }

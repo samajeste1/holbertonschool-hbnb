@@ -1,31 +1,91 @@
-from app.models.user import User
-from app.models.place import Place
-from app.models.review import Review
-from app.models.amenity import Amenity
+"""
+HBnB Facade - Service Layer
+Couche de service implementant le pattern Facade
+
+Le pattern Facade fournit une interface simplifiee pour un ensemble
+de sous-systemes complexes. Ici, la facade:
+- Coordonne les operations entre les differents repositories
+- Encapsule la logique metier
+- Fournit un point d'entree unique pour l'API
+
+Architecture:
+    API Controllers → Facade → Repositories → Database
+"""
+
+# Importe les modeles
+from app.models.user import User       # Modele utilisateur
+from app.models.place import Place     # Modele lieu/logement
+from app.models.review import Review   # Modele avis
+from app.models.amenity import Amenity # Modele equipement
+
+# Importe les repositories (couche d'acces aux donnees)
 from app.persistence.repository import SQLAlchemyRepository
 from app.persistence.user_repository import UserRepository
 from app.persistence.place_repository import PlaceRepository
 from app.persistence.review_repository import ReviewRepository
 from app.persistence.amenity_repository import AmenityRepository
+
+# Importe bcrypt pour le hachage des mots de passe
 import bcrypt
 
+
 class HBnBFacade:
+    """
+    Facade pour l'application HBnB
+    Point d'entree unique pour toutes les operations metier
+
+    Cette classe coordonne:
+    - La gestion des utilisateurs (CRUD + authentification)
+    - La gestion des lieux (CRUD + recherche)
+    - La gestion des avis (CRUD + filtrage)
+    - La gestion des equipements (CRUD)
+
+    Usage:
+        facade = HBnBFacade()
+        user = facade.create_user({...})
+        places = facade.get_all_places()
+    """
+
     def __init__(self):
-        # Initialisation des référentiels
+        """
+        Initialise la facade avec tous les repositories necessaires
+        Chaque repository gere l'acces a une table specifique
+        """
+        # Repository pour les utilisateurs
         self.user_repo = UserRepository()
+
+        # Repository pour les lieux/logements
         self.place_repo = PlaceRepository()
+
+        # Repository pour les avis
         self.review_repo = ReviewRepository()
+
+        # Repository pour les equipements
         self.amenity_repo = AmenityRepository()
         
     """ USERS """
 
     def create_user(self, user_data):
         """Créer un nouvel utilisateur."""
+        # Verifie si l'email est disponible
         if not self.user_repo.is_email_available(user_data['email']):
             return None
 
-        user = User(**user_data)
-        user.hash_password(user_data['password'])
+        # Extrait le mot de passe avant de creer l'utilisateur
+        password = user_data.pop('password', None)
+
+        # Cree l'utilisateur avec les donnees (sans le mot de passe)
+        user = User(
+            first_name=user_data['first_name'],
+            last_name=user_data['last_name'],
+            email=user_data['email'],
+            is_admin=user_data.get('is_admin', False)
+        )
+
+        # Hache et stocke le mot de passe
+        if password:
+            user.hash_password(password)
+
         return self.user_repo.add(user)
 
     def get_user(self, user_id):

@@ -1,60 +1,136 @@
 <!DOCTYPE html>
+<!-- Declaration DOCTYPE HTML5 -->
+
 <html lang="en">
+<!-- Document HTML en anglais -->
+
 <head>
+    <!-- Metadonnees de la page -->
+
     <meta charset="UTF-8">
+    <!-- Encodage UTF-8 -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configuration responsive pour mobile -->
+
     <title>HBnB - Place Details</title>
+    <!-- Titre de la page : details d'un lieu -->
+
     <link rel="icon" type="image/png" href="images/icon.png">
+    <!-- Favicon -->
+
     <link rel="stylesheet" href="styles.css">
+    <!-- Feuille de style CSS -->
 </head>
+
 <body>
+    <!-- Corps de la page -->
+
     <header>
+        <!-- En-tete -->
+
         <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        <!-- Logo de l'application -->
+
         <a href="login.html" class="login-button" id="login-link">Login</a>
+        <!-- Lien de connexion -->
+        <!-- Cache par JavaScript si l'utilisateur est deja connecte -->
     </header>
 
     <nav>
+        <!-- Navigation -->
+
         <ul>
             <li><a href="index.html">Home</a></li>
+            <!-- Retour a l'accueil -->
+
             <li><a href="login.html">Login</a></li>
+            <!-- Page de connexion -->
         </ul>
     </nav>
 
     <main>
+        <!-- Contenu principal -->
+
         <section id="place-details" class="place-details">
+            <!-- Section pour afficher les details du lieu -->
+            <!-- Le contenu est genere dynamiquement par JavaScript -->
+            <!-- JavaScript recupere l'ID du lieu depuis l'URL (?id=xxx) -->
+            <!-- et charge les details depuis l'API -->
             <!-- Place details will be dynamically inserted here -->
         </section>
 
         <section id="reviews">
+            <!-- Section pour afficher les avis sur ce lieu -->
+
             <h3>Reviews</h3>
+            <!-- Titre de la section avis -->
+            <!-- Les cartes d'avis sont inserees par JavaScript -->
             <!-- Reviews will be dynamically inserted here -->
         </section>
 
         <section id="add-review" class="add-review" style="display: none;">
+            <!-- Section pour ajouter un avis -->
+            <!-- style="display: none;" : cache par defaut -->
+            <!-- JavaScript l'affiche si l'utilisateur est connecte -->
+
             <h3>Add a Review</h3>
+            <!-- Titre du formulaire -->
+
             <form id="review-form" class="form">
+                <!-- Formulaire d'ajout d'avis -->
+
                 <label for="review-text">Your Review:</label>
+                <!-- Label pour le champ texte -->
+
                 <textarea id="review-text" name="review-text" required></textarea>
+                <!-- Zone de texte pour ecrire l'avis -->
+                <!-- textarea : champ multi-lignes -->
+                <!-- required : obligatoire -->
 
                 <label for="review-rating">Rating:</label>
+                <!-- Label pour la note -->
+
                 <select id="review-rating" name="review-rating" required>
+                    <!-- Menu deroulant pour la note -->
+
                     <option value="">Select a rating</option>
+                    <!-- Option par defaut (invalide car value="") -->
+
                     <option value="1">1 - Poor</option>
+                    <!-- Note 1 sur 5 -->
+
                     <option value="2">2 - Fair</option>
+                    <!-- Note 2 sur 5 -->
+
                     <option value="3">3 - Good</option>
+                    <!-- Note 3 sur 5 -->
+
                     <option value="4">4 - Very Good</option>
+                    <!-- Note 4 sur 5 -->
+
                     <option value="5">5 - Excellent</option>
+                    <!-- Note 5 sur 5 -->
                 </select>
 
                 <button type="submit">Submit Review</button>
+                <!-- Bouton pour soumettre l'avis -->
+                <!-- JavaScript envoie les donnees a l'API POST /reviews -->
             </form>
         </section>
     </main>
 
     <footer>
+        <!-- Pied de page -->
+
         <p>&copy; 2024 HBnB. All rights reserved.</p>
     </footer>
 
     <script src="scripts.js"></script>
+    <!-- JavaScript qui :
+         1. Recupere l'ID du lieu depuis l'URL
+         2. Charge les details du lieu depuis l'API
+         3. Affiche le formulaire d'avis si connecte
+         4. Gere la soumission des avis -->
 </body>
 </html>

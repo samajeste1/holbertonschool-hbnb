@@ -1,3 +1,9 @@
+"""
+Services layer package - Business logic layer
+"""
 from app.services.facade import HBnBFacade
 
+# Create a singleton instance of the facade
 facade = HBnBFacade()
+
+__all__ = ['facade', 'HBnBFacade']

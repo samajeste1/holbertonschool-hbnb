@@ -1,52 +1,123 @@
 <!DOCTYPE html>
+<!-- Declaration DOCTYPE HTML5 -->
+
 <html lang="en">
+<!-- Document HTML en anglais -->
+
 <head>
+    <!-- Metadonnees de la page -->
+
     <meta charset="UTF-8">
+    <!-- Encodage UTF-8 pour les caracteres speciaux -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configuration responsive pour mobile -->
+
     <title>HBnB - Add Review</title>
+    <!-- Titre de la page : ajouter un avis -->
+
     <link rel="icon" type="image/png" href="images/icon.png">
+    <!-- Favicon de l'application -->
+
     <link rel="stylesheet" href="styles.css">
+    <!-- Feuille de style CSS -->
 </head>
+
 <body>
+    <!-- Corps de la page -->
+
     <header>
+        <!-- En-tete de la page -->
+
         <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        <!-- Logo de l'application -->
+
         <a href="index.html" class="login-button">Home</a>
+        <!-- Bouton pour retourner a l'accueil -->
     </header>
 
     <nav>
+        <!-- Barre de navigation -->
+
         <ul>
             <li><a href="index.html">Home</a></li>
+            <!-- Lien vers la page d'accueil -->
+
             <li><a href="login.html">Login</a></li>
+            <!-- Lien vers la page de connexion -->
         </ul>
     </nav>
 
     <main>
+        <!-- Contenu principal de la page -->
+
         <section>
+            <!-- Section d'en-tete avec le nom du lieu -->
+
             <h1>Add Review for: <span id="place-name">Loading...</span></h1>
+            <!-- Titre dynamique -->
+            <!-- span#place-name : sera rempli par JavaScript avec le nom du lieu -->
+            <!-- "Loading..." : texte par defaut pendant le chargement -->
         </section>
 
         <form id="review-form" class="add-review form">
+            <!-- Formulaire d'ajout d'avis -->
+            <!-- id="review-form" : permet a JavaScript de capturer la soumission -->
+            <!-- class="add-review form" : applique les styles CSS -->
+
             <label for="review">Your Review:</label>
+            <!-- Label pour le champ de texte de l'avis -->
+
             <textarea id="review" name="review" required></textarea>
+            <!-- Zone de texte pour ecrire l'avis -->
+            <!-- textarea : permet plusieurs lignes de texte -->
+            <!-- required : champ obligatoire -->
 
             <label for="rating">Rating:</label>
+            <!-- Label pour le menu de notation -->
+
             <select id="rating" name="rating" required>
+                <!-- Menu deroulant pour choisir la note -->
+                <!-- required : selection obligatoire -->
+
                 <option value="">Select a rating</option>
+                <!-- Option par defaut non valide (value="") -->
+                <!-- Force l'utilisateur a faire un choix -->
+
                 <option value="1">1 - Poor</option>
+                <!-- Note 1/5 : Mauvais -->
+
                 <option value="2">2 - Fair</option>
+                <!-- Note 2/5 : Passable -->
+
                 <option value="3">3 - Good</option>
+                <!-- Note 3/5 : Bien -->
+
                 <option value="4">4 - Very Good</option>
+                <!-- Note 4/5 : Tres bien -->
+
                 <option value="5">5 - Excellent</option>
+                <!-- Note 5/5 : Excellent -->
             </select>
 
             <button type="submit">Submit Review</button>
+            <!-- Bouton de soumission -->
+            <!-- Declenche l'evenement submit capture par JavaScript -->
         </form>
     </main>
 
     <footer>
+        <!-- Pied de page -->
+
         <p>&copy; 2024 HBnB. All rights reserved.</p>
+        <!-- Copyright -->
     </footer>
 
     <script src="scripts.js"></script>
+    <!-- JavaScript qui :
+         1. Verifie si l'utilisateur est connecte (sinon redirige vers index)
+         2. Recupere l'ID du lieu depuis l'URL (?id=xxx)
+         3. Charge le nom du lieu pour l'afficher
+         4. Envoie l'avis a l'API avec le token JWT -->
 </body>
 </html>

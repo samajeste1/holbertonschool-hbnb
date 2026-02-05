@@ -1,3 +1,6 @@
-from app.services.facade import HBnBFacade
+"""
+Services layer package - Business logic layer
+"""
+from app.services.facade import HBnBFacade, hbnb_facade
 
-facade = HBnBFacade()
+__all__ = ['HBnBFacade', 'hbnb_facade']

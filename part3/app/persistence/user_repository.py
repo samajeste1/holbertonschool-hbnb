@@ -1,58 +1,70 @@
+"""
+User Repository implementation
+"""
 from app.models.user import User
 from app.persistence.repository import SQLAlchemyRepository
 from app import db
 from sqlalchemy.exc import SQLAlchemyError
 
+
 class UserRepository(SQLAlchemyRepository):
+    """Repository for User model operations"""
+
     def __init__(self):
+        """Initialize with User model"""
         super().__init__(db.session, User)
 
-    def get_user_by_email(self, email):
-        """Récupérer un utilisateur par email"""
-        return self.session.query(User).filter_by(email=email).first()
+    def is_email_available(self, email, exclude_user_id=None):
+        """
+        Check if an email is available
 
-    def get_users_by_name(self, first_name=None, last_name=None):
-        """Rechercher des utilisateurs par nom"""
-        query = self.session.query(User)
-        if first_name:
-            query = query.filter(User.first_name.ilike(f'%{first_name}%'))
-        if last_name:
-            query = query.filter(User.last_name.ilike(f'%{last_name}%'))
-        return query.all()
+        Args:
+            email: Email to check
+            exclude_user_id: Optional user ID to exclude from check
+
+        Returns:
+            True if email is available, False otherwise
+        """
+        query = self.session.query(User).filter(User.email == email)
+        if exclude_user_id:
+            query = query.filter(User.id != exclude_user_id)
+        return query.first() is None
+
+    def get_by_email(self, email):
+        """
+        Get user by email
+
+        Args:
+            email: User's email address
+
+        Returns:
+            User if found, None otherwise
+        """
+        return self.session.query(User).filter(User.email == email).first()
 
     def get_admins(self):
-        """Récupérer tous les administrateurs"""
-        return self.session.query(User).filter_by(is_admin=True).all()
+        """
+        Get all admin users
 
-    def is_email_available(self, email, user_id=None):
-        """Vérifier si un email est disponible"""
-        query = self.session.query(User).filter_by(email=email)
-        if user_id:
-            query = query.filter(User.id != user_id)
-        return not query.first()
+        Returns:
+            List of admin users
+        """
+        return self.session.query(User).filter(User.is_admin == True).all()
 
-    def update_password(self, user_id, new_password):
-        """Mettre à jour le mot de passe d'un utilisateur"""
-        try:
-            user = self.get(user_id)
-            if user:
-                user.hash_password(new_password)
-                self.session.commit()
-                return True
-            return False
-        except SQLAlchemyError as e:
-            self.session.rollback()
-            raise
+    def search_by_name(self, name):
+        """
+        Search users by name (first or last)
 
-    def update_admin_status(self, user_id, is_admin):
-        """Mettre à jour le statut administrateur d'un utilisateur"""
-        try:
-            user = self.get(user_id)
-            if user:
-                user.is_admin = is_admin
-                db.session.commit()
-                return True
-            return False
-        except SQLAlchemyError as e:
-            db.session.rollback()
-            raise
+        Args:
+            name: Name to search for
+
+        Returns:
+            List of matching users
+        """
+        search_term = f"%{name}%"
+        return self.session.query(User).filter(
+            db.or_(
+                User.first_name.ilike(search_term),
+                User.last_name.ilike(search_term)
+            )
+        ).all()

@@ -1,42 +1,96 @@
 <!DOCTYPE html>
+<!-- Declaration DOCTYPE HTML5 : indique au navigateur d'utiliser le mode HTML5 standard -->
+
 <html lang="en">
+<!-- Balise racine du document HTML -->
+
 <head>
+    <!-- Section head : metadonnees du document -->
+
     <meta charset="UTF-8">
+    <!-- Encodage UTF-8 pour supporter tous les caracteres -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configuration pour l'affichage responsive sur mobile -->
+
     <title>HBnB - Login</title>
+    <!-- Titre de la page affiche dans l'onglet -->
+
     <link rel="icon" type="image/png" href="images/icon.png">
+    <!-- Favicon de l'application -->
+
     <link rel="stylesheet" href="styles.css">
+    <!-- Feuille de style CSS externe -->
 </head>
+
 <body>
+    <!-- Corps de la page visible -->
+
     <header>
+        <!-- En-tete avec logo et lien retour -->
+
         <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        <!-- Logo cliquable de l'application -->
+
         <a href="index.html" class="login-button">Home</a>
+        <!-- Bouton pour retourner a la page d'accueil -->
     </header>
 
     <nav>
+        <!-- Barre de navigation -->
+
         <ul>
             <li><a href="index.html">Home</a></li>
+            <!-- Lien vers l'accueil -->
+
             <li><a href="login.html">Login</a></li>
+            <!-- Lien vers la page de connexion (page actuelle) -->
         </ul>
     </nav>
 
     <main>
+        <!-- Contenu principal : formulaire de connexion -->
+
         <form id="login-form" class="form">
+            <!-- Formulaire de connexion -->
+            <!-- id="login-form" : permet a JavaScript de capturer la soumission -->
+            <!-- class="form" : applique les styles CSS du formulaire -->
+
             <h2>Login</h2>
+            <!-- Titre du formulaire -->
+
             <label for="email">Email:</label>
+            <!-- Label pour le champ email -->
+            <!-- for="email" : associe le label au champ input avec id="email" -->
+
             <input type="email" id="email" name="email" required>
+            <!-- Champ de saisie pour l'email -->
+            <!-- type="email" : validation automatique du format email -->
+            <!-- required : champ obligatoire, empeche la soumission si vide -->
 
             <label for="password">Password:</label>
+            <!-- Label pour le champ mot de passe -->
+
             <input type="password" id="password" name="password" required>
+            <!-- Champ de saisie pour le mot de passe -->
+            <!-- type="password" : masque les caracteres saisis -->
+            <!-- required : champ obligatoire -->
 
             <button type="submit">Login</button>
+            <!-- Bouton de soumission du formulaire -->
+            <!-- type="submit" : declenche l'evenement submit du formulaire -->
         </form>
     </main>
 
     <footer>
+        <!-- Pied de page -->
+
         <p>&copy; 2024 HBnB. All rights reserved.</p>
+        <!-- Copyright -->
     </footer>
 
     <script src="scripts.js"></script>
+    <!-- JavaScript qui gere la soumission du formulaire -->
+    <!-- Envoie les credentials a l'API et stocke le token JWT -->
 </body>
 </html>
