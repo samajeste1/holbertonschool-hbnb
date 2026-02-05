@@ -1,242 +1,284 @@
-# HBnB - AirBnB Clone
+# HBnB - Holberton AirBnB Clone
 
-Projet complet de clone d'AirBnB développé en équipe, comprenant le backend (API, Business Logic, Database) et le frontend (Web Client).
+A full-stack web application for managing rental properties, inspired by Airbnb. Built with Flask (Python) backend and HTML/CSS/JavaScript frontend.
 
-## Équipe
+## Table of Contents
 
-- Allan
-- Bony
-- Rattler
+- [Features](#features)
+- [Architecture](#architecture)
+- [Database Design](#database-design)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
 
-## Structure du projet
+## Features
 
-Le projet est divisé en 4 parties principales :
-
-### Part 1: Technical Documentation
-Documentation technique complète de l'architecture et du design de l'application.
-
-**Dossier:** `part1/`
-
-**Contenu:**
-- Diagramme de packages (architecture 3 couches)
-- Diagramme de classes détaillé (Business Logic)
-- Diagrammes de séquence (4 flux API)
-- Documentation UML complète avec Mermaid.js
-- Principes SOLID appliqués
-- Règles métier et validation
-
-**Fichiers clés:**
-- [README.md](part1/README.md) - Vue d'ensemble complète
-- [QUICK_START.md](part1/QUICK_START.md) - Guide de navigation
-- [task_00_package_diagram.md](part1/task_00_package_diagram.md) - Architecture
-- [task_01_class_diagram.md](part1/task_01_class_diagram.md) - Modèles
-- [task_02_sequence_diagrams.md](part1/task_02_sequence_diagrams.md) - Flux API
-
-### Part 2: Business Logic and API
-Implémentation de la couche Business Logic et des endpoints API RESTful avec Flask et flask-restx.
-
-**Dossier:** `part2/`
-
-**Fonctionnalités:**
-- Architecture modulaire (Presentation, Business Logic, Persistence)
-- Pattern Facade pour la communication entre couches
-- Repository en mémoire pour la persistance
-- Endpoints CRUD pour User, Place, Review, Amenity
-- Documentation Swagger automatique
-
-### Part 3: Authentication and Database Integration
-Extension du backend avec authentification JWT, contrôle d'accès basé sur les rôles, et intégration de base de données.
-
-**Dossier:** `part3/`
-
-**Fonctionnalités:**
-- Authentification JWT avec Flask-JWT-Extended
-- Contrôle d'accès basé sur les rôles (RBAC)
-- Hachage de mots de passe avec bcrypt
-- Intégration SQLAlchemy (SQLite pour dev, MySQL pour prod)
-- Mapping des entités et relations
-- Scripts SQL pour la génération de schéma
-- Diagrammes ER avec Mermaid.js
-
-### Part 4: Simple Web Client
-Client web frontend interactif utilisant HTML5, CSS3 et JavaScript ES6.
-
-**Dossier:** `part4/`
-
-**Fonctionnalités:**
-- Interface utilisateur responsive
-- Authentification côté client
-- Gestion de sessions avec cookies JWT
-- Liste des places avec filtrage
-- Détails des places
-- Ajout de reviews
-- Communication avec l'API via Fetch API
-
-## Technologies utilisées
-
-### Backend
-- **Python 3.8+**
-- **Flask** - Framework web
-- **Flask-RESTx** - Extension pour APIs RESTful
-- **Flask-JWT-Extended** - Authentification JWT
-- **Flask-Bcrypt** - Hachage de mots de passe
-- **SQLAlchemy** - ORM pour base de données
-- **SQLite** - Base de données de développement
-- **MySQL** - Base de données de production
-
-### Frontend
-- **HTML5** - Structure
-- **CSS3** - Styles
-- **JavaScript ES6** - Logique client
-- **Fetch API** - Requêtes HTTP
-
-## Installation
-
-### Part 2 (Backend - API)
-```bash
-cd part2
-pip install -r requirements.txt
-export FLASK_APP=app
-export FLASK_ENV=development
-flask run
-```
-
-### Part 3 (Backend - Auth & DB)
-```bash
-cd part3
-pip install -r requirements.txt
-export FLASK_APP=app
-export FLASK_ENV=development
-export JWT_SECRET_KEY=your-secret-key
-export DATABASE_URL=sqlite:///hbnb.db
-python scripts/init_db.py
-flask run
-```
-
-### Part 4 (Frontend)
-```bash
-cd part4
-# Ouvrir index.html dans un navigateur
-# Ou utiliser un serveur local :
-python -m http.server 8000
-```
+- **User Management**: Registration, authentication with JWT tokens
+- **Place Listings**: Create, view, and manage rental properties
+- **Reviews**: Leave ratings and reviews for places
+- **Amenities**: Manage property amenities (WiFi, Pool, Parking, etc.)
+- **Search & Filter**: Filter places by price
+- **Role-Based Access**: Admin and regular user permissions
 
 ## Architecture
 
-### Backend (Part 2 & 3)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend (HTML/CSS/JS)                   │
+│                    - Login Page                             │
+│                    - Places Listing                         │
+│                    - Place Details                          │
+│                    - Add Review                             │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              │ HTTP/REST API
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Flask REST API                           │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐ │
+│  │ /api/v1/auth│  │/api/v1/users│  │ /api/v1/places      │ │
+│  │ /api/v1/    │  │/api/v1/     │  │ /api/v1/reviews     │ │
+│  │  amenities  │  │             │  │                     │ │
+│  └─────────────┘  └─────────────┘  └─────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Service Layer (Facade)                   │
+│              Business logic and validation                  │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    SQLAlchemy ORM                           │
+│         User | Place | Review | Amenity Models              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Database                                 │
+│            SQLite (dev) / PostgreSQL (prod)                 │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Database Design
+
+### Entity-Relationship Diagram
 
 ```
-Presentation Layer (API)
-    ↓
-Business Logic Layer (Models)
-    ↓
-Facade Pattern
-    ↓
-Persistence Layer (Repository)
-    ↓
-Database (SQLite/MySQL)
+┌───────────────────┐          ┌───────────────────┐
+│       USER        │          │      AMENITY      │
+├───────────────────┤          ├───────────────────┤
+│ PK  id (UUID)     │          │ PK  id (UUID)     │
+│     first_name    │          │     name          │
+│     last_name     │          └─────────┬─────────┘
+│     email (UNIQUE)│                    │
+│     password_hash │                    │ M:N
+│     is_admin      │                    │
+└─────────┬─────────┘          ┌─────────▼─────────┐
+          │                    │  PLACE_AMENITY    │
+          │ 1:N               ├───────────────────┤
+          │                    │ FK  place_id      │
+┌─────────▼─────────┐          │ FK  amenity_id    │
+│       PLACE       │◀─────────┴───────────────────┘
+├───────────────────┤
+│ PK  id (UUID)     │
+│ FK  owner_id      │──────────▶ USER
+│     title         │
+│     description   │
+│     price         │
+│     latitude      │
+│     longitude     │
+└─────────┬─────────┘
+          │
+          │ 1:N
+          │
+┌─────────▼─────────┐
+│      REVIEW       │
+├───────────────────┤
+│ PK  id (UUID)     │
+│ FK  place_id      │──────────▶ PLACE
+│ FK  user_id       │──────────▶ USER
+│     text          │
+│     rating (1-5)  │
+└───────────────────┘
 ```
 
-### Frontend (Part 4)
+### Relationships
 
-```
-HTML Pages
-    ↓
-JavaScript (ES6)
-    ↓
-Fetch API
-    ↓
-Backend API
-```
+| Relationship | Type | Description |
+|--------------|------|-------------|
+| User → Place | One-to-Many | User owns multiple places |
+| User → Review | One-to-Many | User writes multiple reviews |
+| Place → Review | One-to-Many | Place has multiple reviews |
+| Place ↔ Amenity | Many-to-Many | Via place_amenity table |
 
-## Endpoints API
+## Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Backend | Python 3.8+, Flask 2.3+ |
+| API | Flask-RESTx |
+| Database ORM | SQLAlchemy |
+| Authentication | JWT (Flask-JWT-Extended) |
+| Password Hashing | Bcrypt |
+| Database | SQLite (dev), PostgreSQL (prod) |
+| Frontend | HTML5, CSS3, JavaScript |
+| API Docs | Swagger/OpenAPI |
+
+## Installation
+
+### Prerequisites
+
+- Python 3.8+
+- pip
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/holbertonschool-hbnb.git
+   cd holbertonschool-hbnb
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   venv\Scripts\activate     # Windows
+   ```
+
+3. **Install dependencies**
+   ```bash
+   cd part3
+   pip install -r requirements.txt
+   ```
+
+4. **Run the application**
+   ```bash
+   python run.py
+   ```
+
+5. **Access the API**
+   - API: http://localhost:5001/api/v1/
+   - Swagger Docs: http://localhost:5001/api/v1/doc/
+
+6. **Access the Frontend**
+   - Open `part4/index.html` in a browser
+   - Or serve with: `python -m http.server 8000` in part4 folder
+
+## API Documentation
 
 ### Authentication
-- `POST /api/v1/auth/login` - Connexion utilisateur
 
-### Users
-- `POST /api/v1/users/` - Créer un utilisateur
-- `GET /api/v1/users/` - Lister les utilisateurs
-- `GET /api/v1/users/<id>` - Obtenir un utilisateur
-- `PUT /api/v1/users/<id>` - Mettre à jour un utilisateur
-
-### Places
-- `POST /api/v1/places/` - Créer un place (authentifié)
-- `GET /api/v1/places/` - Lister les places
-- `GET /api/v1/places/<id>` - Obtenir un place
-- `PUT /api/v1/places/<id>` - Mettre à jour un place (propriétaire/admin)
-
-### Reviews
-- `POST /api/v1/reviews/` - Créer un review (authentifié)
-- `GET /api/v1/reviews/` - Lister les reviews
-- `GET /api/v1/reviews/<id>` - Obtenir un review
-- `PUT /api/v1/reviews/<id>` - Mettre à jour un review (auteur/admin)
-- `DELETE /api/v1/reviews/<id>` - Supprimer un review (auteur/admin)
-
-### Amenities
-- `POST /api/v1/amenities/` - Créer une amenity (admin)
-- `GET /api/v1/amenities/` - Lister les amenities
-- `GET /api/v1/amenities/<id>` - Obtenir une amenity
-- `PUT /api/v1/amenities/<id>` - Mettre à jour une amenity (admin)
-
-## Sécurité
-
-- **JWT Authentication** - Tokens pour l'authentification
-- **Password Hashing** - Bcrypt pour le hachage des mots de passe
-- **Role-Based Access Control** - Contrôle d'accès basé sur les rôles
-- **Ownership Validation** - Validation de la propriété des ressources
-- **CORS Configuration** - Configuration CORS pour le frontend
-
-## Base de données
-
-### Entités principales
-- **User** - Utilisateurs (avec is_admin pour les administrateurs)
-- **Place** - Places à louer
-- **Review** - Avis des utilisateurs
-- **Amenity** - Commodités/équipements
-
-### Relations
-- User → Place (one-to-many) - Un utilisateur peut posséder plusieurs places
-- Place → Review (one-to-many) - Un place peut avoir plusieurs reviews
-- User → Review (one-to-many) - Un utilisateur peut écrire plusieurs reviews
-- Place ↔ Amenity (many-to-many) - Un place peut avoir plusieurs amenities
-
-## Documentation
-
-Chaque partie contient son propre README avec des instructions détaillées :
-- [Part 1 README](part1/README.md) - Documentation technique UML
-- [Part 2 README](part2/README.md) - Business Logic et API
-- [Part 3 README](part3/README.md) - Authentication et Database
-- [Part 4 README](part4/README.md) - Web Client
-
-## Tests
-
-### Backend
 ```bash
-# Tests unitaires
-python -m pytest tests/
+# Login
+POST /api/v1/auth/login
+Content-Type: application/json
 
-# Tests avec cURL
-curl -X GET http://localhost:5000/api/v1/places/
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+# Response
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs..."
+}
 ```
 
-### Frontend
-- Ouvrir les pages HTML dans un navigateur
-- Tester l'authentification
-- Vérifier les interactions avec l'API
+### Main Endpoints
 
-## Ressources
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | /api/v1/auth/login | User login | No |
+| GET | /api/v1/users | List users | No |
+| POST | /api/v1/users | Create user | Admin |
+| GET | /api/v1/places | List places | No |
+| POST | /api/v1/places | Create place | Yes |
+| GET | /api/v1/places/{id} | Get place details | No |
+| PUT | /api/v1/places/{id} | Update place | Owner |
+| GET | /api/v1/reviews | List reviews | No |
+| POST | /api/v1/reviews | Create review | Yes |
+| GET | /api/v1/amenities | List amenities | No |
+| POST | /api/v1/amenities | Create amenity | Admin |
 
-- [Flask Documentation](https://flask.palletsprojects.com/)
-- [Flask-RESTx Documentation](https://flask-restx.readthedocs.io/)
-- [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/)
-- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-- [Mermaid.js](https://mermaid.js.org/)
-- [MDN Web Docs](https://developer.mozilla.org/)
+## Testing
 
-## Auteur
+### Run Tests
 
-Holberton School - Team: Allan, Bony, Rattler
+```bash
+cd part3
+pytest tests/ -v
+```
 
+### API Testing with Postman
 
+1. Import the Postman collection from `docs/`
+2. Set environment variable `base_url` to `http://localhost:5001`
+3. Run the test collection
 
+### Manual Testing
+
+```bash
+# Test login
+curl -X POST http://localhost:5001/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@hbnb.io", "password": "admin1234"}'
+
+# Test get places
+curl http://localhost:5001/api/v1/places
+```
+
+## Project Structure
+
+```
+holbertonschool-hbnb/
+├── part2/                    # In-memory implementation
+│   ├── app/
+│   │   ├── models/          # Business models
+│   │   ├── api/v1/          # API endpoints
+│   │   ├── services/        # Facade pattern
+│   │   └── persistence/     # In-memory storage
+│   └── run.py
+│
+├── part3/                    # Database implementation
+│   ├── app/
+│   │   ├── models/          # SQLAlchemy models
+│   │   │   ├── baseclass.py
+│   │   │   ├── user.py
+│   │   │   ├── place.py
+│   │   │   ├── review.py
+│   │   │   └── amenity.py
+│   │   ├── api/
+│   │   │   ├── auth.py      # Authentication
+│   │   │   └── v1/          # API v1 endpoints
+│   │   └── services/
+│   │       └── facade.py    # Business logic
+│   ├── config.py            # Configuration
+│   ├── requirements.txt
+│   └── run.py               # Entry point
+│
+├── part4/                    # Frontend
+│   ├── index.html           # Main page
+│   ├── login.html           # Login page
+│   ├── place.html           # Place details
+│   ├── add_review.html      # Review form
+│   ├── scripts.js           # JavaScript logic
+│   └── styles.css           # Styling
+│
+└── docs/                     # Documentation
+    ├── stage2-planning/
+    ├── stage3-technical/
+    └── stage4-development/
+```
+
+## Authors
+
+- Holberton School Students
+
+## License
+
+This project is part of the Holberton School curriculum.
