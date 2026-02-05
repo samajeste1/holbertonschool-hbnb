@@ -13,7 +13,7 @@ Endpoints:
 from flask_restx import Namespace, Resource, fields
 
 # Importe la facade pour acceder aux operations metier
-from app.services import facade
+from app.services.facade import hbnb_facade as facade
 
 # JWT pour l'authentification et l'autorisation
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
